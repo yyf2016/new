@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zhen Lab - 振实验室</title>
+    <!-- 引入Tailwind CSS实现响应式设计 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 自定义配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#36CFC9',
+                        dark: '#1D2129',
+                        light: '#F2F3F5'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .sidebar-link-active {
+                @apply bg-primary/10 text-primary border-l-4 border-primary;
+            }
+            .transition-sidebar {
+                transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-dark antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!-- 响应式侧边栏 -->
+        <aside id="sidebar" class="bg-white shadow-lg w-64 flex-shrink-0 fixed lg:relative h-full transition-sidebar z-20 transform -translate-x-full lg:translate-x-0">
+            <!-- 侧边栏头部 -->
+            <div class="p-5 border-b flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-white">
+                        <i class="fa fa-flask text-xl"></i>
+                    </div>
+                    <h1 class="text-xl font-bold text-primary">Zhen Lab</h1>
+                </div>
+                <!-- 移动端关闭按钮 -->
+                <button id="closeSidebar" class="lg:hidden text-gray-500 hover:text-primary">
+                    <i class="fa fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <!-- 侧边栏导航 -->
+            <nav class="py-4">
+                <ul>
+                    <li class="mb-1">
+                        <a href="#overview" class="sidebar-link-active flex items-center px-5 py-3 text-sm font-medium">
+                            <i class="fa fa-home w-6 text-center mr-3"></i>
+                            <span>实验室概览</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="#institution" class="flex items-center px-5 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-primary transition-colors">
+                            <i class="fa fa-building-o w-6 text-center mr-3"></i>
+                            <span>所属机构</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="#research" class="flex items-center px-5 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-primary transition-colors">
+                            <i class="fa fa-search w-6 text-center mr-3"></i>
+                            <span>研究方向</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="#questions" class="flex items-center px-5 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-primary transition-colors">
+                            <i class="fa fa-question-circle-o w-6 text-center mr-3"></i>
+                            <span>重点科学问题</span>
+                        </a>
+                    </li>
+                    <li class="mb-1">
+                        <a href="#materials" class="flex items-center px-5 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-primary transition-colors">
+                            <i class="fa fa-flask w-6 text-center mr-3"></i>
+                            <span>研究材料</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- 侧边栏底部 -->
+            <div class="absolute bottom-0 w-full p-5 border-t">
+                <div class="text-sm text-gray-500">
+                    <p>© 2024 Zhen Lab</p>
+                    <p class="mt-1">西湖大学生命科学学院</p>
+                </div>
+            </aside>
+
+            <!-- 主内容区 -->
+            <main class="flex-1 overflow-y-auto bg-gray-50 lg:ml-64">
+                <!-- 顶部导航栏 -->
+                <header class="bg-white shadow-sm sticky top-0 z-10">
+                    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+                        <!-- 移动端菜单按钮 -->
+                        <button id="openSidebar" class="lg:hidden text-gray-600 hover:text-primary">
+                            <i class="fa fa-bars text-xl"></i>
+                        </button>
+                        <h2 class="text-lg font-semibold text-gray-800">振实验室 (Zhen Lab)</h2>
+                        <div class="flex items-center space-x-4">
+                            <a href="#" class="text-gray-600 hover:text-primary transition-colors">
+                                <i class="fa fa-envelope text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-primary transition-colors">
+                                <i class="fa fa-globe text-lg"></i>
+                            </a>
+                            <a href="#" class="text-gray-600 hover:text-primary transition-colors">
+                                <i class="fa fa-search text-lg"></i>
+                            </a>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- 内容区域 -->
+                <div class="container mx-auto px-4 py-8">
+                    <!-- 实验室概览 -->
+                    <section id="overview" class="mb-12">
+                        <div class="bg-white rounded-xl shadow-sm p-6 md:p-8">
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4">
+                                    <i class="fa fa-info-circle text-2xl"></i>
+                                </div>
+                                <h2 class="text-2xl font-bold text-gray-800">实验室概览</h2>
+                            </div>
+                            <p class="text-gray-600 leading-relaxed mb-4">
+                                Zhen Lab（振实验室）致力于生态适应分子机制的研究，通过整合实验与计算生物学方法，揭示自然选择如何塑造生物种群的遗传多样性。实验室依托西湖大学强大的科研平台，开展从分子到生态系统水平的多维度研究。
+                            </p>
+                            <p class="text-gray-600 leading-relaxed">
+                                我们的研究团队由具有不同学科背景的科研人员组成，包括分子生物学、生态学、生物信息学等领域的专家，形成了独特的跨学科研究优势，为解决复杂的进化生物学问题提供了有力支持。
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- 所属机构 -->
+                    <section id="institution" class="mb-12">
+                        <div class="bg-white rounded-xl shadow-sm p-6 md:p-8">
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4">
+                                    <i class="fa fa-building text-2xl"></i>
+                                </div>
+                                <h2 class="text-2xl font-bold text-gray-800">所属机构</h2>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                                    <h3 class="font-semibold text-lg text-gray-800 mb-3">主要隶属机构</h3>
+                                    <ul class="space-y-3 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fa fa-check-circle text-secondary mt-1 mr-2"></i>
+                                            <span>西湖大学生命科学学院</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                                    <h3 class="font-semibold text-lg text-gray-800 mb-3">合作附属机构</h3>
+                                    <ul class="space-y-3 text-gray-600">
+                                        <li class="flex items-start">
+                                            <i class="fa fa-link text-secondary mt-1 mr-2"></i>
+                                            <span>西湖大学生命科学与生物医学实验室</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-link text-secondary mt-1 mr-2"></i>
+                                            <span>西湖高等研究院</span>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fa fa-link text-secondary mt-1 mr-2"></i>
+                                            <span>浙江省结构生物学重点实验室</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 研究方向 -->
+                    <section id="research" class="mb-12">
+                        <div class="bg-white rounded-xl shadow-sm p-6 md:p-8">
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4">
+                                    <i class="fa fa-compass text-2xl"></i>
+                                </div>
+                                <h2 class="text-2xl font-bold text-gray-800">研究核心方向</h2>
+                            </div>
+                            <div class="bg-primary/5 rounded-lg p-6 border-l-4 border-primary mb-6">
+                                <h3 class="font-semibold text-lg text-primary mb-3">生态适应的分子机制</h3>
+                                <p class="text-gray-600 leading-relaxed">
+                                    实验室以<span class="font-medium">生态适应的分子机制</span>为核心研究方向，通过结合实验与计算两种研究方法，探究适应过程对自然种群遗传变异产生的影响，研究场景涵盖环境梯度下的自然种群以及占据独特生态位的物种。
+                                </p>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                                    <h4 class="font-medium text-gray-800 mb-2 flex items-center">
+                                        <i class="fa fa-flask text-primary mr-2"></i>
+                                        实验研究方法
+                                    </h4>
+                                    <p class="text-gray-600 text-sm">
+                                        包括分子克隆、基因编辑、蛋白质表达与纯化、高通量测序、野外种群调查与采样等实验技术，为解析适应机制提供实验证据。
+                                    </p>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                                    <h4 class="font-medium text-gray-800 mb-2 flex items-center">
+                                        <i class="fa fa-laptop text-primary mr-2"></i>
+                                        计算研究方法
+                                    </h4>
+                                    <p class="text-gray-600 text-sm">
+                                        涵盖基因组数据分析、群体遗传学建模、分子进化分析、蛋白质结构预测与模拟等计算技术，从大数据中挖掘适应进化的规律。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 重点科学问题 -->
+                    <section id="questions" class="mb-12">
+                        <div class="bg-white rounded-xl shadow-sm p-6 md:p-8">
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4">
+                                    <i class="fa fa-question-circle text-2xl"></i>
+                                </div>
+                                <h2 class="text-2xl font-bold text-gray-800">重点关注科学问题</h2>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex">
+                                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold mr-4">1</div>
+                                    <div class="flex-1 bg-gray-50 rounded-lg p-5 border border-gray-100">
+                                        <h4 class="font-medium text-gray-800 mb-2">适应性进化的限制因素</h4>
+                                        <p class="text-gray-600 text-sm">
+                                            探究哪些内在和外在因素会对生物的适应性进化起到限制作用，包括遗传连锁、突变负荷、基因互作网络以及环境波动等。
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold mr-4">2</div>
+                                    <div class="flex-1 bg-gray-50 rounded-lg p-5 border border-gray-100">
+                                        <h4 class="font-medium text-gray-800 mb-2">进化动力与种群多样性</h4>
+                                        <p class="text-gray-600 text-sm">
+                                            分析自然选择、遗传漂变、基因流和突变等不同进化动力如何共同塑造自然种群的遗传多样性模式，以及这些模式在不同时空尺度上的变化。
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold mr-4">3</div>
+                                    <div class="flex-1 bg-gray-50 rounded-lg p-5 border border-gray-100">
+                                        <h4 class="font-medium text-gray-800 mb-2">新性状形成的遗传基础</h4>
+                                        <p class="text-gray-600 text-sm">
+                                            揭示生物新性状（novel traits）形成的遗传与发育基础，包括关键基因的起源与进化、基因表达调控网络的重构以及发育通路的创新等。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 研究材料 -->
+                    <section id="materials" class="mb-12">
+                        <div class="bg-white rounded-xl shadow-sm p-6 md:p-8">
+                            <div class="flex items-center mb-6">
+                                <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-4">
+                                    <i class="fa fa-database text-2xl"></i>
+                                </div>
+                                <h2 class="text-2xl font-bold text-gray-800">研究材料与相关信息</h2>
+                            </div>
+
+                            <!-- 研究对象图片展示 -->
+                            <div class="mb-8">
+                                <h3 class="font-semibold text-lg text-gray-800 mb-4">研究对象案例：Pyrocoelia cenwanglaoensis</h3>
+                                <p class="text-gray-600 text-sm mb-4">
+                                    实验室研究的代表性物种，推测为萤火虫类物种（"Pyrocoelia"常指代熠萤属），展示了该物种的湿季形态与干季形态差异。
+                                </p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="rounded-lg overflow-hidden shadow-sm border border-gray-100">
+                                        <div class="relative">
+                                            <!-- 使用占位图替代实际图片 -->
+                                            <img src="https://picsum.photos/seed/wetseason/600/400" alt="Pyrocoelia cenwanglaoensis 湿季形态" class="w-full h-64 object-cover">
+                                            <div class="absolute bottom-0 left-0
